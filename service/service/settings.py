@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w9$1(f0)aeq8*pptk%=z8q7i+^y#^oq4%7kq=akg%=i6&n3$g#'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'service.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'docs-cloud-gather',
-        'HOST': 'sh-cynosdbmysql-grp-17qq9j74.sql.tencentcdb.com',
+        'NAME': '',
+        'HOST': '',
         'PORT': 21237,
-        'USER': 'xintianle',
-        'PASSWORD': 'abc132580...'
+        'USER': '',
+        'PASSWORD': ''
     }
 }
 
