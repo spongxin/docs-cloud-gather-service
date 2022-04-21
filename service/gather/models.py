@@ -1,6 +1,8 @@
-from uuid import uuid4
-from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.admin import display
+from django.utils import timezone
+from django.db import models
+from uuid import uuid4
 
 
 class Package(models.Model):
@@ -16,8 +18,14 @@ class Package(models.Model):
     filesize = models.BooleanField(default=True, verbose_name="限制文件大小", help_text="限制单次提交文件的大小")
     size = models.IntegerField(default=64, verbose_name="最大文件大小", help_text="选择`限制文件大小`后生效")
     public = models.BooleanField(default=True, verbose_name="公开已提交信息", help_text="公开已收集到的信息清单(不包含文件下载权限)")
-    locked = models.BooleanField(default=False, verbose_name="锁定仓库", help_text="将禁止提交至该仓库")
+    locked = models.BooleanField(default=False, verbose_name="锁定状态", help_text="将禁止提交至该仓库")
     publish = models.DateTimeField(auto_now_add=True, verbose_name="发布时间")
+
+    @display(description="有效状态", )
+    def inspect(self):
+        if not self.locked and self.deadline and self.date and self.time:
+            return (timezone.localdate() - self.date).seconds + (timezone.localtime().time() - self.time).seconds < 0
+        return not self.locked
 
     class Meta:
         verbose_name_plural = "收集仓库列表"

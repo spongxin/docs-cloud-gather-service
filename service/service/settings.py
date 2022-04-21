@@ -82,10 +82,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'docs-cloud-gather',
-        'HOST': 'YOUR_DATABASE',
+        'HOST': 'sh-cynosdbmysql-grp-17qq9j74.sql.tencentcdb.com',
         'PORT': 21237,
-        'USER': 'USER_NAME',
-        'PASSWORD': 'PASSWORD'
+        'USER': 'xintianle',
+        'PASSWORD': 'abc132580...'
     }
 }
 

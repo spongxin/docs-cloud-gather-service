@@ -8,14 +8,14 @@ class AccessAdmin(admin.ModelAdmin):
 
 
 class BucketAdmin(admin.ModelAdmin):
-    list_display = ['name', 'private', 'domain']
+    list_display = ['id', 'name', 'private', 'domain']
     search_fields = ['name', ]
 
 
-class TokenAdmin(admin.ModelAdmin):
+class UploadTokenAdmin(admin.ModelAdmin):
     list_display = ['bucket', 'filename', 'expired', 'copy_token', 'inspect', 'publish']
     list_filter = ['bucket__name', ]
-    search_fields = ['bucket', 'filename']
+    search_fields = ['filename', ]
 
     def copy_token(self, obj):
         return format_html(f"""
@@ -25,6 +25,17 @@ class TokenAdmin(admin.ModelAdmin):
     copy_token.short_description = '鉴权值'
 
 
+class ResourceAdmin(admin.ModelAdmin):
+    list_display = ['bucket', 'filename', 'to_url', 'unique', 'publish']
+    list_filter = ['bucket__name', ]
+    search_fields = ['filename', ]
+
+    def to_url(self, obj):
+        return format_html(f"""<a href="{obj.url}"><b>下载文件</b></a>""")
+    to_url.short_description = '文件链接'
+
+
 admin.site.register(Access, AccessAdmin)
 admin.site.register(Bucket, BucketAdmin)
-admin.site.register(Token, TokenAdmin)
+admin.site.register(UploadToken, UploadTokenAdmin)
+admin.site.register(Resource, ResourceAdmin)
