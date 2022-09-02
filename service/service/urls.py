@@ -16,31 +16,11 @@ Including another URLconf
 from gather.views import *
 from storage.views import *
 from django.contrib import admin
-from rest_framework import routers, serializers, viewsets
-from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import User
 from django.urls import path, include
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, )
-
-    class UserSerializer(serializers.HyperlinkedModelSerializer):
-        class Meta:
-            model = User
-            fields = ['url', 'username', 'email']
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-router = routers.DefaultRouter()
-router.register('users', UserViewSet)
-router.register('tokens', UploadTokenViewSet)
-router.register('resource', ResourceViewSet)
-router.register('package', PackageViewSet)
-
 urlpatterns = [
-    path('', include(router.urls)),
+    path('gather/', include('gather.urls')),
+    path('storage/', include('storage.urls')),
     path('admin/', admin.site.urls),
-    path('auth/', include('rest_framework.urls', namespace='rest_framework_auth'))
 ]

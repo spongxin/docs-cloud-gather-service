@@ -1,12 +1,5 @@
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
-from gather.serializers import PackageSerializer
-from rest_framework import viewsets
-from gather.models import Package
+from django.http.response import HttpResponse, JsonResponse
 
 
-class PackageViewSet(viewsets.ModelViewSet):
-    # permission_classes = (DjangoModelPermissionsOrAnonReadOnly, )
-
-    queryset = Package.objects.all().order_by('-publish')
-    serializer_class = PackageSerializer
-
+def package(request):
+    return HttpResponse('package')
